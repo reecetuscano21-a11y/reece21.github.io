@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reece Tuscano | Portfolio</title>
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #eee;
+        }
+
+        body.dark-mode section {
+            color: #eee;
+        }
+
+        body.dark-mode #about,
+        body.dark-mode #contact {
+            background: #16213e;
+        }
+
+        body.dark-mode #skills {
+            background: #0f3460;
+        }
+
+        body.dark-mode .skill-item {
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        body.dark-mode .about-text p,
+        body.dark-mode .skill-name {
+            color: #ccc;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: #1a1a2e;
+            color: #eee;
+            border-color: #444;
+        }
+
+        body.dark-mode nav {
+            background: rgba(26, 26, 46, 0.95);
+        }
+
+        body.dark-mode nav ul li a {
+            color: #eee;
+        }
+
+        /* Smooth scrolling for the entire page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, border-color 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        body.dark-mode .cursor {
+            border-color: #fff;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #667eea;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, background-color 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        body.dark-mode .cursor-dot {
+            background: #fff;
+        }
+
+        /* Cursor effects on hover */
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+        }
+
+        body.dark-mode .cursor.hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .cursor-dot.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: #764ba2;
+        }
+
+        body.dark-mode .cursor-dot.hover {
+            background: #667eea;
+        }
+
+        /* Cursor trail effect */
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: trailFade 0.5s ease-out forwards;
+        }
+
+        body.dark-mode .cursor-trail {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes trailFade {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Hide custom cursor on mobile devices */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            
+            .cursor,
+            .cursor-dot,
+            .cursor-trail {
+                display: none;
+            }
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode .bg-animation {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+        }
+
+        /* Animated gradient overlay */
+        .gradient-overlay {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 0, 150, 0.1),
+                rgba(0, 204, 255, 0.1),
+                rgba(255, 255, 0, 0.1),
+                rgba(0, 255, 127, 0.1)
+            );
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(10%, -10%) rotate(120deg);
+            }
+            66% {
+                transform: translate(-10%, 10%) rotate(240deg);
+            }
+        }
+
+        /* Floating circles animation */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        body.dark-mode .circle {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .circle:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 3s;
+        }
+
+        .circle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 10%;
+            animation-delay: 6s;
+        }
+
+        .circle:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(6) {
+            width: 90px;
+            height: 90px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        /* Particle system */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 8s infinite linear;
+        }
+
+        body.dark-mode .particle {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-50px) translateX(30px);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* ===== THEME TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: rgba(26, 26, 46, 0.9);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        /* Active link indicator */
+        nav ul li a.active {
+            color: #667eea;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ===== HOME SECTION ===== */
+        #home {
+            text-align: center;
+            color: white;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        #home p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s backwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* ===== SKILLS SECTION ===== */
+        #skills {
+            background: #f8f9fa;
+        }
+
+        #skills h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+            width: 0;
+        }
+        #projects {
+  background: #122b44;
+}
+
+#projects h2 {
+  font-size: 2.5rem;
+  color: #667eea;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.project-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.project-item h3 {
+  color: #764ba2;
+  margin-bottom: 1rem;
+}
+
+.project-item a {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.project-item a:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-3px);
+}
+
+
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            background: white;
+        }
+
+        #contact h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background: #2ecc71;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .theme-toggle {
+                top: 70px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            #home h1 {
+                font-size: 2.5rem;
+            }
+
+            #home p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-photo {
+                margin: 0 auto;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #home h1 {
+                font-size: 2rem;
+            }
+
+            .about-text h2,
+            #skills h2,
+            #contact h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .social-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 3rem 0;
+}
+
+.social-icon img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(118,75,162,0.10), 0 0px 0px 0px #667eea;
+  border: 3px solid #667eea;
+  transition: box-shadow 0.3s, transform 0.2s, border-color 0.3s;
+  background: white;
+  object-fit: cover;
+}
+
+.social-icon.instagram img {
+  border-color: #E1306C;
+}
+
+.social-icon.linkedin img {
+  border-color: #0077B5;
+}
+
+.social-icon:hover img {
+  box-shadow: 0 8px 32px rgba(118,75,162,0.25);
+  transform: scale(1.15) rotate(-3deg);
+  border-color: #764ba2;
+}
+
+@media (max-width: 480px) {
+  .social-section {
+    gap: 1rem;
+  }
+  .social-icon img {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.copyright-footer {
+  text-align: center;
+  padding: 1rem 0;
+  color: #667eea;
+  font-size: 1.05rem;
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+body.dark-mode .copyright-footer {
+  color: #fff;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-overlay"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        🌙
+    </button>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="container">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Hi, I'm Reece Tuscano - a passionate web developer creating amazing digital experiences</p>
+            <a href="#skills" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+               <div class="profile-photo">
+    <img src="image2.jpg" alt="Avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+</div>
+
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Hello! I'm Reece Tuscano, a creative and dedicated web developer with a passion for building beautiful and functional websites. With expertise in modern web technologies, I love turning ideas into reality through clean code and elegant design.</p>
+                    <br>
+                    <p>I specialize in front-end development and enjoy creating responsive, user-friendly interfaces that provide exceptional user experiences. When I'm not coding, you can find me exploring new technologies and learning new skills to stay ahead in this ever-evolving field.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>HTML</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="90"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>CSS</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="85"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>JavaScript</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="80"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>React</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="75"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Responsive Design</span>
+                        <span>88%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="88"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Git & GitHub</span>
+                        <span>82%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-progress="82"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+<section id="projects">
+  <div class="container">
+    <h2>My Projects & Certifications</h2>
+    <div class="projects-grid">
+      <div class="project-item">
+        <h3>MATLAB Onramp Certificate</h3>
+        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=f0df8e93-54d2-480b-be8b-341fd5c46d47&authuser=0" target="_blank">View Certificate (PDF)</a>
+      </div>
+      <div class="project-item">
+        <h3>MATLAB Fundamentals Certificate</h3>
+        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5e3aef14-2996-4145-9d56-a8e20697193d&authuser=0" target="_blank">View Certificate (PDF)</a>
+      </div>
+      <div class="project-item">
+        <h3>MATLAB Programming Certificate</h3>
+        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=c3a7b997-1b1d-4f3b-a94c-ea1787f0fbc7&authuser=0" target="_blank">View Certificate (PDF)</a>
+      </div>
+      <div class="project-item">
+        <h3>MATLAB Machine Learning Certificate</h3>
+        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=a1a6be67-7a81-4fb7-ac06-06a4e36d29ac&authuser=0" target="_blank">View Certificate (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name">
+                    <div class="error" id="nameError">Please enter your name</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                    <div class="error" id="emailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your message here..."></textarea>
+                    <div class="error" id="messageError">Please enter a message</div>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // ===== CUSTOM CURSOR ANIMATION =====
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let dotX = 0;
+        let dotY = 0;
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create trail effect
+            createTrail(e.clientX, e.clientY);
+        });
+
+        // Smooth cursor animation using requestAnimationFrame
+        function animateCursor() {
+            // Smooth follow effect for outer ring
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Faster follow for dot
+            dotX += (mouseX - dotX) * 0.15;
+            dotY += (mouseY - dotY) * 0.15;
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Add hover effect on interactive elements
+        const hoverElements = document.querySelectorAll('a, button, input, textarea');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorDot.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorDot.classList.remove('hover');
+            });
+        });
+
+        // Cursor trail effect
+        let lastTrailTime = 0;
+        function createTrail(x, y) {
+            const now = Date.now();
+            // Throttle trail creation to every 50ms
+            if (now - lastTrailTime < 50) return;
+            lastTrailTime = now;
+
+            const trail = document.createElement('div');
+            trail.classList.add('cursor-trail');
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+
+            // Remove trail element after animation
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+        }
+
+        // ===== CREATE ANIMATED PARTICLES =====
+        function createParticles() {
+            const bgAnimation = document.querySelector('.bg-animation');
+            const particleCount = 50; // Number of particles to create
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random starting position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation duration and delay
+                particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Create particles on page load
+        createParticles();
+
+        // ===== DARK MODE TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            // Update button icon and save preference
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // ===== NAVIGATION ACTIVE STATE =====
+        // Get all navigation links and sections
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        // Function to update active navigation link based on scroll position
+        function updateActiveNav() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                // Check if the section is in view (accounting for navbar height)
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // Update active class on navigation links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Listen for scroll events
+        window.addEventListener('scroll', updateActiveNav);
+
+        // ===== SKILLS PROGRESS ANIMATION =====
+        // Animate progress bars when skills section is in view
+        function animateSkills() {
+            const skillsSection = document.getElementById('skills');
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const sectionTop = skillsSection.offsetTop;
+            const sectionHeight = skillsSection.clientHeight;
+            
+            // Check if skills section is in viewport
+            if (window.pageYOffset >= sectionTop - window.innerHeight / 2 && 
+                window.pageYOffset <= sectionTop + sectionHeight) {
+                
+                progressBars.forEach(bar => {
+                    const progress = bar.getAttribute('data-progress');
+                    bar.style.width = progress + '%';
+                });
+                
+                // Remove scroll listener after animation to prevent re-triggering
+                window.removeEventListener('scroll', animateSkills);
+            }
+        }
+
+        window.addEventListener('scroll', animateSkills);
+
+        // ===== FORM VALIDATION =====
+        const contactForm = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const successMessage = document.getElementById('successMessage');
+
+        // Email validation regex pattern
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Form submission handler
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            let isValid = true;
+
+            // Validate name field
+            if (nameInput.value.trim() === '') {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate email field
+            if (!emailPattern.test(emailInput.value.trim())) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate message field
+            if (messageInput.value.trim() === '') {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            }
+
+            // If all validations pass, show success message
+            if (isValid) {
+                successMessage.style.display = 'block';
+                
+                // Clear form fields
+                contactForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // Real-time validation on input
+        nameInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                document.getElementById('nameError').style.display = 'none';
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            if (emailPattern.test(this.value.trim())) {
+                document.getElementById('emailError').style.display = 'none';
+            }
+        });
+
+        messageInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                document.getElementById('messageError').style.display = 'none';
+            }
+        });
+
+        // ===== SMOOTH SCROLL FOR NAVIGATION LINKS =====
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').slice(1);
+                const targetSection = document.getElementById(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+   <div class="social-section">
+  <a href="https://www.instagram.com/tuscanoreece/" target="_blank" class="social-icon instagram">
+    <img src="https://tse3.mm.bing.net/th/id/OIP.-MrX4GZO-cQuDnxfCnVv8AHaHa?pid=Api&P=0&h=180" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/in/reece-tuscano-6866ba386/" target="_blank" class="social-icon linkedin">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.sNviNsOg4aXGRMoWQvqpjwHaHa?pid=Api&P=0&h=180" alt="LinkedIn" />
+  </a>
+</div>
+
+<footer class="copyright-footer">
+  &copy; 2025 Reece Tuscano. All rights reserved.
+</footer>
+
+</body>
+</html>
